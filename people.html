@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>গ্রামের লোকের তালিকা</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .search-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      max-width: 500px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      th {
+        display: none;
+      }
+      td {
+        padding: 10px;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>গ্রামের লোকের তালিকা</h1>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="খুঁজুন নাম, পেশা, পাড়া, রক্তের গ্রুপ...">
+  </div>
+  <table id="peopleTable">
+    <thead>
+      <tr>
+        <th>ছবি</th>
+        <th>নাম</th>
+        <th>ফোন নম্বর</th>
+        <th>রক্তের গ্রুপ</th>
+        <th>পাড়ার নাম</th>
+        <th>পেশা</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="images/placeholder.jpg" alt="ছবি"></td>
+        <td data-label="নাম">নাম এখানে</td>
+        <td data-label="ফোন নম্বর">01XXXXXXXXX</td>
+        <td data-label="রক্তের গ্রুপ">A+</td>
+        <td data-label="পাড়ার নাম">মধ্যপাড়া</td>
+        <td data-label="পেশা">শিক্ষক</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const table = document.getElementById("peopleTable");
+
+    searchInput.addEventListener("keyup", function() {
+      const filter = searchInput.value.toLowerCase();
+      const rows = table.getElementsByTagName("tr");
+
+      for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        let match = false;
+        for (let j = 0; j < cells.length; j++) {
+          if (cells[j].textContent.toLowerCase().includes(filter)) {
+            match = true;
+            break;
+          }
+        }
+        rows[i].style.display = match ? "" : "none";
+      }
+    });
+  </script>
+</body>
+</html>
